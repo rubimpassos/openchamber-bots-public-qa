@@ -1,0 +1,21 @@
+name: Synthetic QA
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  qa:
+    name: qa-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm test
+      - name: Keep the required check pending for auto-merge QA
+        if: github.event_name == 'pull_request'
+        run: node --input-type=module -e "await new Promise(resolve => setTimeout(resolve, 90000))"
