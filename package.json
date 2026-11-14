@@ -1,0 +1,6 @@
+{
+  "name": "openchamber-bots-public-qa",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test" }
+}
